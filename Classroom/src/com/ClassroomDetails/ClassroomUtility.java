@@ -34,7 +34,7 @@ public class ClassroomUtility {
 					break;
 			}
 			
-			Classroom sobj = new Classroom(rid, name, new Teacher(tid, tname, desg));
+			arr[icnt] = new Classroom(rid, name, new Teacher(tid, tname, desg));
 		}
 	}
 	
