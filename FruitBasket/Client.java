@@ -12,6 +12,9 @@ public class Client {
 		
 		int ichoice = 0;
 		
+		System.out.println("=================Welcome to FruitStore==================");
+		System.out.println();
+		
 		while(true)
 		{
 			System.out.println("Enter Choice : \n1.Add Fruit\n2.View Basket\n3.Exit");
