@@ -3,7 +3,7 @@ package com.app.core;
 import java.time.LocalDate;
 
 // Create a core Class 
-public class Customer
+public class Customer implements Comparable<Customer>
 {
 	// Tightly Coupled and declare members 
  	private int customerid;
@@ -18,7 +18,7 @@ public class Customer
 	
 	static 
 	{
-		System.out.println("======== Customer Management App ========");
+		System.out.println(" ======== Customer Management App ======== ");
 		idgenerator = 1001;
 	}
 
@@ -68,6 +68,67 @@ public class Customer
 			return this.emailid.equals(cust.emailid);
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(Customer o) {
+		return this.emailid.compareTo(o.emailid);
+	}
+
+	public int getCustomerid() {
+		return customerid;
+	}
+
+	public void setCustomerid(int customerid) {
+		this.customerid = customerid;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getEmailid() {
+		return emailid;
+	}
+
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
+	}
+
+	public double getRegAmount() {
+		return regAmount;
+	}
+
+	public void setRegAmount(double regAmount) {
+		this.regAmount = regAmount;
+	}
+
+	public LocalDate getDobDate() {
+		return dobDate;
+	}
+
+	public void setDobDate(LocalDate dobDate) {
+		this.dobDate = dobDate;
+	}
+
+	public ServicePlan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(ServicePlan plan) {
+		this.plan = plan;
 	}
 	
 }

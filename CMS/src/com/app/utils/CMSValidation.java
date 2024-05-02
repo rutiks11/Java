@@ -1,6 +1,5 @@
 package com.app.utils;
 
-import java.io.ObjectInputStream.GetField;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -13,27 +12,7 @@ import com.app.core.ServicePlan;
 
 public class CMSValidation {
 	
-	// Method to Sign In
-	public static Customer authorisation(String email,String password,List<Customer> customers) throws CMSException
-	{
-		Customer cust = new Customer(email);
-		if(!customers.contains(cust))
-		{
-			throw new CMSException("Account Does not Exists");		
-		}
-		else 
-		{
-			int index = customers.indexOf(cust);
-			Customer user = customers.get(index);
-			if((user.getPassword()).equals(password))
-			{
-				System.out.println("Successfully Login..!!!");
-				return user;
-			}
-		}
-		
-		throw new CMSException("Invalid Password");
-	}
+	
 	
 	// Method to check the validation of the email
 	public static void validatemail(String emailString) throws CMSException
