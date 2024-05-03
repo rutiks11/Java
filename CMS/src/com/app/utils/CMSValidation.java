@@ -1,38 +1,42 @@
 package com.app.utils;
 
+import static com.app.core.ServicePlan.valueOf;
+
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
-import java.util.regex.Pattern;
-
-import static com.app.core.ServicePlan.*;
-
 import com.app.CMSException.CMSException;
 import com.app.core.Customer;
 import com.app.core.ServicePlan;
 
 public class CMSValidation {
 	
+	public static String regexPattern;
+	public static String regexPatternPass;
 	
+	static
+	{
+		regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(com|net|org)$";
+		regexPatternPass = "((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})";
+	}
+	
+	public static void parseAndvalidateDob(String dobDate)throws CMSException
+	{
+		LocalDate date = LocalDate.parse(dobDate);
+		if(18 > Period.between(date,LocalDate.now()).getYears())
+			throw new CMSException("Under Age....");
+	}
 	
 	// Method to check the validation of the email
 	public static void validatemail(String emailString) throws CMSException
-	{
-		String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(com|net|org)$";
-		
-		if(!patternMatches(emailString,regexPattern))
+	{	
+		if(!emailString.matches(regexPattern))
 			throw new CMSException("Invalid Email...Please enter Correct Email");
-	}
-	
-	public static boolean patternMatches(String email, String regexString) 
-	{
-		return Pattern.compile(regexString).matcher(email).matches();
 	}
 	
 	public static void validatepass(String password) throws CMSException
 	{
-		String regexPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})";
-
-		if(!patternMatches(password,regexPattern))
+		if(!password.matches(regexPatternPass))
 			throw new CMSException("Password must contains A-Z a-z 0-9...");
 	}
 	
@@ -74,11 +78,11 @@ public class CMSValidation {
 		// Check service plan with register amount
 		validatemail(emailid);
 		validatepass(password);
+		parseAndvalidateDob(dobDate);
 		ServicePlan servicePlan = parsenValidateServicePlanCharages(plan,regAmount);
 		LocalDate dob = LocalDate.parse(dobDate);
 		
 		return new Customer(firstname, lastname, emailid, password, regAmount, dob, servicePlan);
 	}
-	
 
 }

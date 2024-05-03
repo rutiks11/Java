@@ -5,6 +5,7 @@ import static com.app.core.ServicePlan.valueOf;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ import com.app.core.ServicePlan;
 
 public class CMSUtils 
 {
+	
 	public static Customer authenticationCustomer(String email,String password,List<Customer> customers) throws CMSException
 	{
 		// Passing the Object to the contains method
@@ -48,12 +50,19 @@ public class CMSUtils
 		ServicePlan serviceplan = valueOf(plan.toUpperCase());
 		LocalDate beforedate = LocalDate.parse(date);
 		
-		for(Customer customer : list)
+		Iterator<Customer> custIterator = list.iterator();
+		
+		// For each not work because of the ConcurrentModificationException
+		// It is trying to iterate and modify same time
+		// Using the Iterator 
+		while(custIterator.hasNext())
 		{
+			Customer customer = custIterator.next();
 			if((customer.getPlan() == serviceplan) && (customer.getDobDate().isAfter(beforedate)))
-				list.remove(list.get(list.indexOf(customer)));	
+				custIterator.remove();
 		}
-		System.out.println("List Upodated");
+		
+		System.out.println("List Updated");
 	}
 	
 	public static List<Customer> populateCustomers() {
@@ -64,8 +73,10 @@ public class CMSUtils
 		Customer a5 = new Customer("Rahul", "Shoeran",  "rahul11@gmail.com" , "rshoe@11" , 2000.0d , LocalDate.parse("1990-10-11"), ServicePlan.GOLD);
 		Customer a6 = new Customer("Prashant", "Khaware",  "prashant11@gmail.com" , "khaw@11" , 1000.0d , LocalDate.parse("1996-10-11"), ServicePlan.SILVER);
 		Customer a7 = new Customer("Abhishek", "Pawar",  "abhi@gmail.com" , "abhi@11" , 10000.0d , LocalDate.parse("1992-10-11"), ServicePlan.PLATINUM);
+		Customer a8 = new Customer("Rushi", "Sale",  "rutiks@gmail.com" , "rts@11" , 1000.0d , LocalDate.parse("2000-10-12"), ServicePlan.SILVER);
+
 		
-		Customer[] accts = { a1, a2, a3, a4, a5, a6, a7 };
+		Customer[] accts = { a1, a2, a3, a4, a5, a6, a7,a8};
 		List<Customer> list = new ArrayList<>();	// up casting
 		for (Customer a : accts)
 			list.add(a);
