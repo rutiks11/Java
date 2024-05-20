@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 			openConnection(config.getInitParameter("db_url"), config.getInitParameter("user_name"),
 					config.getInitParameter("password"));
 			patientDao = new PatientDaoImp();
-			appointmentDao =  new AppointmentImpl();
+			appointmentDao = new AppointmentImpl();
 		} catch (Exception e) {
 			throw new ServletException("Error in " + getClass(), e);
 		}
@@ -73,45 +73,50 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// Setting the Content Type
 		response.setContentType("text/html");
-		
-		//Getting PrintWriter From the wc
-		try(PrintWriter pw=response.getWriter())
-		{
-			String email= request.getParameter("em");
-			String Pass =  request.getParameter("pass");
-			
+
+		// Getting PrintWriter From the wc
+		try (PrintWriter pw = response.getWriter()) {
+			String email = request.getParameter("em");
+			String Pass = request.getParameter("pass");
+
 			Patient patient = patientDao.signUp(email, Pass);
-			
-			if(patient == null)
-			{
+
+			if (patient == null) {
 				pw.print("<h1>Invalid Login, Please <a href='login.html'>Retry</a></h1>");
-			}
-			else
-			{	
-				// Login Successfull then we are maintainin the state of the Patiet 
-				
+			} else {
+				// Login Successfull then we are maintainin the state of the Patiet
+
 				// Login Servlet is requesting a session to maintain state of the user
 				HttpSession session = request.getSession();
 				// Checking the Session is new or already existing
-				System.out.println("Checking session is already created or it is new "+ session.isNew());
+				System.out.println("Checking session is already created or it is new " + session.isNew());
 				// Get Session ID from session
 				System.out.println("Session ID" + session.getId());
 				// Adding patient under session scope
 				session.setAttribute("patient", patient);
 				// Adding the daos under the session scope
-				// Store the state of the Patient under the session scope 
-				session.setAttribute("patient_dao",patientDao);
-				// Storing the state of Appointment Dao under the session scope 
-				session.setAttribute("appointment_dao",appointmentDao);
-				
-				pw.print("<h2>Hello "+ patient.getName() +"</h2>");
-				pw.print("<h3><a href='upcomingappointment'>View Upcoming Appointment</h3>");
-				pw.print("<h3><a href='Registration.html'>Book Appoinment</h3>");
-				
+				// Store the state of the Patient under the session scope
+				session.setAttribute("patient_dao", patientDao);
+				// Storing the state of Appointment Dao under the session scope
+				session.setAttribute("appointment_dao", appointmentDao);
+
+				pw.print("<h2>Hello " + patient.getName() + "!!! </h2>");
+				// pw.print("<h3><a href='upcomingappointment'>View Upcoming Appointment</h3>");
+				pw.print("<form action='upcomingappointment' method='post'><table><tr>\r\n"
+						+ "				<td><input type=\"submit\" value=\"View Upcoming Appointment\" /></td>\r\n"
+						+ "			</tr>\r\n" + "		</table> </form>");
+
+				// pw.print("<h3><a href='Registration.html'>Book Appoinment</h3>");
+				pw.print("<form action='Registration.html' method='post'><table ><tr>\r\n"
+						+ "				<td><input type=\"submit\" value=\"Book Appointment\" /></td>\r\n"
+						+ "			</tr>\r\n" + "		</table> </form>");
+
+				pw.print("<form action='cancel.html' method='post'><table><tr>\r\n"
+						+ "				<td><input type=\"submit\" value=\"Cancel Appointment\" /></td>\r\n"
+						+ "			</tr>\r\n" + "		</table> </form>");
 			}
-		}
-		catch (Exception e) {
-			throw new ServletException("Error in service "+ getClass(),e);
+		} catch (Exception e) {
+			throw new ServletException("Error in service " + getClass(), e);
 		}
 	}
 

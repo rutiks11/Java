@@ -8,7 +8,6 @@ import static com.app.utils.DBUtils.*;
 
 import com.app.entities.Patient;
 
-
 public class PatientDaoImp implements PatientDao {
 	private Connection cn;
 	PreparedStatement ps1;
@@ -17,7 +16,6 @@ public class PatientDaoImp implements PatientDao {
 		cn = getConnection();
 		ps1 = cn.prepareStatement("select * from patient where email=? and password=?;");
 	}
-
 
 	public Patient signUp(String email, String password) throws SQLException {
 		ps1.setString(1, email);
@@ -29,11 +27,10 @@ public class PatientDaoImp implements PatientDao {
 		return null;
 
 	}
-	
-	public void cleanUp() throws SQLException
-	{
+
+	public void cleanUp() throws SQLException {
 		System.out.println("Inside Patient Cleanup");
-		if(ps1!=null)
+		if (ps1 != null)
 			ps1.close();
 	}
 }

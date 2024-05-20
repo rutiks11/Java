@@ -5,19 +5,26 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Appointment {
-	// aid | AppointmentDate | AppointmentTime | TimeSlot | did  | pid
-	
+	// aid | AppointmentDate | AppointmentTime | TimeSlot | did | pid
+
 	private int aid;
 	private LocalDate appointmentdate;
 	private LocalTime slottime;
 	private String TimeSlot;
 	private int did;
 	private int pid;
-	
 
 	public Appointment(int aid, LocalDate appointmentdate, LocalTime slottime, String timeSlot, int did, int pid) {
 		super();
 		this.aid = aid;
+		this.appointmentdate = appointmentdate;
+		this.slottime = slottime;
+		TimeSlot = timeSlot;
+		this.did = did;
+		this.pid = pid;
+	}
+
+	public Appointment(LocalDate appointmentdate, LocalTime slottime, String timeSlot, int did, int pid) {
 		this.appointmentdate = appointmentdate;
 		this.slottime = slottime;
 		TimeSlot = timeSlot;

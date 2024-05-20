@@ -1,7 +1,7 @@
 package com.app.dao;
 
 import static com.app.utils.DBUtils.getConnection;
-import static com.app.utils.AppointmentValidation.*;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ import com.app.entities.Appointment;
 
 public class AppointmentImpl implements AppointmentDao {
 	private Connection cn;
-	private PreparedStatement ps1, ps2, ps3;
+	private PreparedStatement ps1, ps2, ps3, ps4;
 
 	public AppointmentImpl() throws SQLException {
 		System.out.println("Inside appoint const");
@@ -27,6 +27,7 @@ public class AppointmentImpl implements AppointmentDao {
 		ps1 = cn.prepareStatement("select * from appointment where pid=?");
 		ps2 = cn.prepareStatement("insert into Appointment values(DEFAULT,?,?,?,?,?)");
 		ps3 = cn.prepareStatement("select * from Appointment");
+		ps4 = cn.prepareStatement("delete from Appointment where aid=? and pid=?");
 		System.out.println("Appointment Dao Created");
 		System.out.println("below appoint const");
 	}
@@ -50,30 +51,41 @@ public class AppointmentImpl implements AppointmentDao {
 		return list;
 	}
 
-	public String bookAppointment(int aid, LocalDate appointmentdate, LocalTime slottime, String timeSlot, int did,
-			int pid) throws SQLException {
+	public boolean cancelAppointment(int id, int pid) throws SQLException {
+		ps4.setInt(1, id);
+		ps4.setInt(2, pid);
+
+		int i = ps4.executeUpdate();
+		if (i == 1)
+			return true;
+		else
+			return false;
+
+	}
+
+	public boolean bookAppointment(LocalDate appointmentdate, LocalTime slottime, String timeSlot, int did, int pid)
+			throws SQLException {
+
 		try (ResultSet rs1 = ps3.executeQuery()) {
 			List<Appointment> list = new ArrayList<Appointment>();
-			
-			if(rs1==null)
-				System.out.println("Result set is Empty " +getClass());
-			
-			while(rs1.next())
-			{
-				list.add(new Appointment(aid, appointmentdate, slottime, timeSlot, did, pid));
-			}
-			
+
+			if (rs1 == null)
+				System.out.println("Result set is Empty " + getClass());
+
 			ps2.setDate(1, java.sql.Date.valueOf(appointmentdate));
 			ps2.setTime(2, Time.valueOf(slottime));
 			ps2.setString(3, timeSlot);
 			ps2.setInt(4, did);
 			ps2.setInt(5, pid);
-			
-			validateInputs(aid, appointmentdate, slottime, timeSlot, did, pid,list);
+
+			if (1 == ps2.executeUpdate())
+				return true;
+
+			return false;
+			// validateInputs(aid, appointmentdate, slottime, timeSlot, did, pid, list);
 			// Executing the Update
-			ps2.executeUpdate();
 		}
-		return null;
+
 	}
 
 	public void cleanUp() throws SQLException {
@@ -82,6 +94,10 @@ public class AppointmentImpl implements AppointmentDao {
 			ps1.close();
 		if (ps2 != null)
 			ps2.close();
+		if (ps3 != null)
+			ps3.close();
+		if (ps4 != null)
+			ps4.close();
 
 	}
 }

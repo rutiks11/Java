@@ -13,7 +13,7 @@ public class DBUtils {
 	 * connection , name and Password of the database Getting the connection and
 	 * assigning to the local variable
 	 */
-	
+
 	public static void openConnection(String DB_URL, String USER_NAME, String PASSWORD) throws SQLException {
 		cn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
 	}
@@ -23,8 +23,8 @@ public class DBUtils {
 	public static Connection getConnection() throws SQLException {
 		return cn;
 	}
-	
-	// Clean method to clean up the resourses			
+
+	// Clean method to clean up the resourses
 	public static void closeconnection() throws SQLException {
 		// Check connection is not null
 		if (cn != null) {

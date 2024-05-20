@@ -35,20 +35,18 @@ public class DoctorDaoImpl implements DoctorDao {
 	public List<Doctor> getallDoctorDetails() throws SQLException {
 		// Creating the list to store the all Doctor list
 		List<Doctor> list = new ArrayList<Doctor>();
-		
+
 		// Try with Resources
-		try(ResultSet rs = ps1.executeQuery()){
-		while(rs.next())
-			list.add(new Doctor(rs.getInt(1),rs.getString(2), Speciality.valueOf(rs.getString(3))));
+		try (ResultSet rs = ps1.executeQuery()) {
+			while (rs.next())
+				list.add(new Doctor(rs.getInt(1), rs.getString(2), Speciality.valueOf(rs.getString(3))));
 		}
 		return list;
 	}
-	
-	public void cleanUp() throws SQLException
-	{
+
+	public void cleanUp() throws SQLException {
 		System.out.println("Inside Doctor's Clean Up");
-		if(ps1 != null)
-		{	
+		if (ps1 != null) {
 			ps1.close();
 		}
 	}
