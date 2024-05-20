@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="bookappointment" method="post">
+        <table style="background-color: lightgrey; margin: auto; text-align: center;">
+            <tr style="text-align: center;">
+                <td>
+                    <label for="doctor">Choose Doctor</label>
+                    <select id="doctor" name="cars">
+                        <option value="Onkar">Onkar</option>
+                        <option value="Shubham">Shubham</option>
+                        <option value="Parth">Parth</option>
+                        <option value="Disha">Disha</option>
+                        <option value="Nilam">Nilam</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="TimeSlot">Choose TimeSlot</label>
+                    <select id="tm" name="time">
+                        <option value="Morning">Morning</option>
+                        <option value="Evening">Evening</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="tm">Choose Time</label>
+                    <select id="tm" name="time">
+                        <option value="09:00">9:00</option>
+                        <option value="09:30">09:30</option>
+                        <option value="10.00">10.00</option>
+                        <option value="10.30">10.30</option>
+                        <option value="11.00">11.00</option>
+                        <option value="11.30">11.30</option>
+                        <option value="12.00">12.00</option>
+                        <option value="12.30">12.30</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+               	<td><label for="dt">Select Date</label></td>
+                <td><input type="date" name="dt"></td>
+            </tr>
+			<tr>
+				<td><input type="submit" /><td>
+			</tr>
+        </table>
+        
+    </form>
+</body>
+
+</html>
