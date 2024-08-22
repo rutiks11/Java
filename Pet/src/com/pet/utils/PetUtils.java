@@ -1,5 +1,6 @@
 package com.pet.utils;
 
+<<<<<<< HEAD
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -8,11 +9,16 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+=======
+import java.util.ArrayList;
+import java.util.Arrays;
+>>>>>>> 8e2a1003d252cedbeeab6e2450d43858461298d1
 import java.util.List;
 import java.util.Map;
 
 import com.pet.core.Category;
 import com.pet.core.Pet;
+<<<<<<< HEAD
 import com.pet.custom_exception.PETException;
 
 public class PetUtils {
@@ -83,5 +89,23 @@ public class PetUtils {
 		catch (Exception e) {
 			throw new PETException("ERROR in Reading Binary File");
 		}
+=======
+
+public class PetUtils {
+	public static Map<Integer, Pet> popopulatePetMap()
+	{
+		//petId, name, category, unitPrice, stocks
+		List<Pet> petlist = new ArrayList<Pet>(Arrays.asList(
+				new Pet("Tomy", Category.DOG,10000,1),
+				new Pet("Rony", Category.DOG,25000,1),
+				new Pet("lily", Category.CAT,2000,1),
+				new Pet("Rony", Category.DOG,25000,1),
+				new Pet("Rony", Category.DOG,25000,1),
+				new Pet("Rony", Category.DOG,25000,1)
+				));
+		
+		return null;
+		
+>>>>>>> 8e2a1003d252cedbeeab6e2450d43858461298d1
 	}
 }

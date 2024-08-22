@@ -1,5 +1,6 @@
 package com.pet.utils;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,5 +29,15 @@ public class UserUtils {
 		}
 		throw new PETException("User Does not Exists");
 
+=======
+import com.pet.core.User;
+
+public class UserUtils {
+	
+	public static User authenticateUser(String uname,String password)
+	{
+		
+		return null;
+>>>>>>> 8e2a1003d252cedbeeab6e2450d43858461298d1
 	}
 }

@@ -7,9 +7,16 @@ public class Order {
 	private int qty;
 	private Status status;
 	private static int idgenerator;
+<<<<<<< HEAD
 
 	static {
 		idgenerator = 1000;
+=======
+	
+	static 
+	{
+		idgenerator=1000;
+>>>>>>> 8e2a1003d252cedbeeab6e2450d43858461298d1
 	}
 
 	public Order() {
@@ -24,6 +31,7 @@ public class Order {
 		this.status = status;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public boolean equals(Object o)
 	{
@@ -42,6 +50,8 @@ public class Order {
 	}
 	
 	
+=======
+>>>>>>> 8e2a1003d252cedbeeab6e2450d43858461298d1
 	public int getOid() {
 		return oid;
 	}
@@ -78,5 +88,11 @@ public class Order {
 	public String toString() {
 		return "Order [oid=" + oid + ", ppetid=" + ppetid + ", qty=" + qty + ", status=" + status + "]";
 	}
+<<<<<<< HEAD
 
+=======
+	
+	
+	
+>>>>>>> 8e2a1003d252cedbeeab6e2450d43858461298d1
 }
